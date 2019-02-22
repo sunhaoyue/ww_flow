@@ -1,0 +1,35 @@
+@charset "utf-8";
+body {
+	background-color: #F5F8FD;
+}
+.rightpage01 {
+	margin: 5px;
+	border: 0px solid #AAC2F0;
+}
+
+.rightpage01 .headbg01 {
+	background-image: url(../images/2.0/table1_th.gif);
+	background-repeat: repeat-x;
+	height: 26px;
+	padding-left: 10px;
+	color: #fff;
+	font-weight:bold;
+	font-size: 13px;
+}
+.rightpage01 .headbg01 a {
+	font-size: 14px;
+	font-weight: bold;
+	color: #086DBB;
+}
+.rightpage01 table .title01 {
+	font-size: 14px;
+	background-color: #FCE474;
+	line-height: 40px;
+}
+
+.rightpage01 table .textbg01 {
+	background-color: #f8fafd;
+}
+.rightpage01 table .textbg02 {
+	background-color: #D8E3F8;
+}

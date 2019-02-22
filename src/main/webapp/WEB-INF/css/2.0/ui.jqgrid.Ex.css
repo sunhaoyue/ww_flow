@@ -1,0 +1,20 @@
+/* Grid Caption */
+.ui-widget-header { border: 1px solid #4297d7; background: #5c9ccc url(../../images/2.0/table1_th.gif) repeat-x; color: #ffffff; font-weight: bold; }
+
+/* Grid Title */
+.ui-jqgrid .ui-jqgrid-hdiv {position: relative; margin: 0em;padding: 0em; overflow-x: hidden; border-left: 0px none !important; border-top : 0px none !important; border-right : 0px none !important;}
+.ui-jqgrid-title{font-family:"Microsoft YaHei";font-size:14px;}
+/*
+.ui-widget-content .ui-state-default
+{ border: 1px solid #c5dbec; background: #dfeffc url(../../images/2.0/table1_top2.gif) repeat-x; font-weight: bold; color: #2e6e9e; }
+*/
+
+/* .ui-row-ltr td a{color: #0000FF;}
+.ui-row-ltr td a:hover{color: #CD0000;} */
+
+.ui-jqgrid .ui-pg-input{
+	font-size: .8em;
+	line-height: 16px;
+	height: 16px;
+	margin: 0em;
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- 部门相关 -->
+	<bean id="organServiceImpl"
+		class="com.wwgroup.organ.service.impl.OrganServiceImpl">
+		<property name="organDao" ref="organDaoImpl" />
+	</bean>
+	<bean id="organService" parent="basicTxProxy">
+		<property name="target" ref="organServiceImpl"></property>
+	</bean>
+	<bean id="organDaoImpl"
+		class="com.wwgroup.organ.dao.impl.OrganDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean name="organAction"
+		class="com.wwgroup.organ.action.OrganAction"
+		scope="prototype">
+		<property name="organService" ref="organService"></property>
+		<property name="userService" ref="userServiceImpl"></property>
+		<property name="flowService" ref="flowServiceImpl"></property>
+	</bean>
+
+
+	<!-- 用户相关 -->
+	<bean id="userServiceImpl"
+		class="com.wwgroup.user.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDaoImpl" />
+	</bean>
+	<bean id="userService" parent="basicTxProxy">
+		<property name="target" ref="userServiceImpl"></property>
+	</bean>
+	<bean id="userDaoImpl"
+		class="com.wwgroup.user.dao.impl.UserDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean name="userAction"
+		class="com.wwgroup.user.action.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="personService" ref="personService"></property>
+		<property name="organService" ref="organService"></property>
+		<property name="flowService" ref="flowService"></property>
+	</bean>
+
+</beans>

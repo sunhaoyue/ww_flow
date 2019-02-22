@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="organ" namespace="/organ"
+		extends="wwGroup-default">
+		<action name="loadOrgansByParent" class="organAction"
+			method="loadOrgansByParent">
+		</action>
+		<action name="loadBossOrgans" class="organAction"
+			method="loadBossOrgans">
+		</action>
+		<action name="loadDivisionOrgans" class="organAction"
+			method="loadDivisionOrgans">
+		</action>
+		<action name="loadLocalOrgans" class="organAction"
+			method="loadLocalOrgans">
+		</action>
+		<action name="loadOrgsByCmp" class="organAction"
+			method="loadOrgsByCmp">
+		</action>
+	</package>
+
+	<package name="user" namespace="/user" extends="wwGroup-default">
+		<action name="getUsersByGroup" class="userAction"
+			method="getUsersByGroup">
+		</action>
+		<action name="getQianChenDetail" class="userAction"
+			method="getQianChenDetailByUser">
+		</action>
+		<action name="loadJoinUsers" class="userAction"
+			method="loadJoinUsers">
+		</action>
+	</package>
+</struts>

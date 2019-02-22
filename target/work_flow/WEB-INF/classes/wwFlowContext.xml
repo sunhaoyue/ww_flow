@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="abstractFlowProcessor" abstract="true"
+		class="com.wwgroup.flow.service.stage.AbstractFlowStageProcessor">
+		<property name="userService" ref="userService" />
+		<property name="flowService" ref="flowServiceImpl" />
+		<property name="personService" ref="personServiceImpl" />
+		<property name="flowDao" ref="flowDao" />
+	</bean>
+	<bean id="innerJointSignFlowStageProcessor"
+		parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.InnerJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="centerChengHeFlowStageProcessor" />
+	</bean>
+	<bean id="centerChengHeFlowStageProcessor" parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.CenterChengHeFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="cmpcodeJointSignFlowStageProcessor" />
+	</bean>
+	<bean id="cmpcodeJointSignFlowStageProcessor" 
+		parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.CmpcodeJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="chengHeFlowStageProcessor" />
+	</bean>
+	<bean id="chengHeFlowStageProcessor" parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.ChengHeFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="jointSignFlowStageProcessor" />
+	</bean>
+	<bean id="jointSignFlowStageProcessor"
+		parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.JointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="confirmFlowStageProcessor" />
+	</bean>
+	<bean id="confirmFlowStageProcessor" parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.ConfirmFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="secondfinalSignatureFlowStageProcessor" />
+	</bean>
+	<bean id="secondfinalSignatureFlowStageProcessor"
+		parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.SecondFinalSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="nextfinalSignatureFlowStageProcessor" />
+	</bean>
+	<bean id="nextfinalSignatureFlowStageProcessor"
+		parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.NextFinalSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="finalSignatureFlowStageProcessor" />
+	</bean>
+	<bean id="finalSignatureFlowStageProcessor"
+		parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.FinalSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor"
+			ref="copySendFlowStageProcessor" />
+	</bean>
+	<bean id="copySendFlowStageProcessor" parent="abstractFlowProcessor"
+		class="com.wwgroup.flow.service.stage.CopySendFlowStageProcessor">
+	</bean>
+
+	<!-- 新的签呈 -->
+	<!-- 签呈启动 -->
+	<bean id="qcabstractFlowProcessor" abstract="true"
+		class="com.wwgroup.flow.service.qstage.QCAbstractFlowStageProcessor">
+		<property name="userService" ref="userService" />
+		<property name="flowService" ref="qcflowServiceImpl" />
+		<property name="personService" ref="personServiceImpl" />
+		<property name="flowDao" ref="flowDao" />
+	</bean>
+	<!-- 签呈内部会签 -->
+	<bean id="qcinnerJointSignFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCInnerJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcdeptChengHeFlowStageProcessor" />
+	</bean>
+	<!-- 签呈部门签核 -->
+	<bean id="qcdeptChengHeFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCDeptChengHeFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qccenterJointSignFlowStageProcessor" />
+	</bean>
+	<!-- 签呈中心会签 -->
+	<bean id="qccenterJointSignFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCCenterJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qccenterChengHeFlowStageProcessor" />
+	</bean>
+	<!-- 签呈中心签核 -->
+	<bean id="qccenterChengHeFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCCenterChengHeFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qccmpcodeJointSignFlowStageProcessor" />
+	</bean>
+	<!-- 签呈单位会办 -->
+	<bean id="qccmpcodeJointSignFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCCmpcodeJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcnextChengHeFlowStageProcessor" />
+	</bean>
+	<!-- 签呈单位副主管签核 -->
+	<bean id="qcnextChengHeFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCNextChengHeFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcchengHeFlowStageProcessor" />
+	</bean>
+	<!-- 签呈单位主管签核 -->
+	<bean id="qcchengHeFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCChengHeFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcsystemSignFlowStageProcessor" />
+	</bean>
+	<!-- 签呈体系内单位会办 -->
+	<bean id="qcsystemSignFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCSystemJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcnextBusinessFlowStageProcessor" />
+	</bean>
+	<!-- 签呈事业部副主管签核 -->
+	<bean id="qcnextBusinessFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCNextBusinessFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcbusinessFlowStageProcessor" />
+	</bean>
+	<!-- 签呈事业部主管签核 -->
+	<bean id="qcbusinessFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCBusinessFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcjointSignFlowStageProcessor" />
+	</bean>
+	<!-- 签呈其他单位会办 -->
+	<bean id="qcjointSignFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcnextFinalSignatureFlowStageProcessor" />
+	</bean>
+	<!-- 签呈核决副主管签核 -->
+	<bean id="qcnextFinalSignatureFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCNextFinalSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcfinalSignatureFlowStageProcessor" />
+	</bean>
+	<!-- 签呈核决主管签核 -->
+	<bean id="qcfinalSignatureFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCFinalSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcxzJointSignFlowStageProcessor" />
+	</bean>
+	<!-- 行政职能部门会办 -->
+	<bean id="qcxzJointSignFlowStageProcessor" parent="qcabstractFlowProcessor" 
+		class="com.wwgroup.flow.service.qstage.QCXZJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcfinalPlusSignatureFlowStageProcessor" />	
+	</bean>
+	<!-- 签呈核决二次主管签核 -->
+	<bean id="qcfinalPlusSignatureFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCFinalPlusSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcChairmanSignatureFlowStageProcessor" />
+	</bean>
+	<!-- 董事长签核 -->
+	<bean id="qcChairmanSignatureFlowStageProcessor" parent="qcabstractFlowProcessor" 
+		class="com.wwgroup.flow.service.qstage.QCChairmanSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcSubmitFBossSignatureFlowStageProcessor" />
+	</bean>
+	<!-- 副总裁签核 -->
+	<bean id="qcSubmitFBossSignatureFlowStageProcessor" parent="qcabstractFlowProcessor" 
+		class="com.wwgroup.flow.service.qstage.QCSubmitFBossSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qcconfirmFlowStageProcessor" />
+	</bean>
+	<!-- 签呈本人确认 -->
+	<bean id="qcconfirmFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCConfirmFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="qccopySendFlowStageProcessor" />
+	</bean>
+	<!-- 签呈抄送 -->
+	<bean id="qccopySendFlowStageProcessor" parent="qcabstractFlowProcessor"
+		class="com.wwgroup.flow.service.qstage.QCCopySendFlowStageProcessor">
+		<!--<property name="nextFlowStageProcessor" ref="centerChengHeFlowStageProcessor" />-->
+	</bean>
+	<!-- 新的签呈 End. -->
+	
+	<!-- 新的内联 -->
+	<!-- Start -->
+	<bean id="nlabstractFlowProcessor" abstract="true"
+		class="com.wwgroup.flow.service.nstage.NLAbstractFlowStageProcessor">
+		<property name="userService" ref="userService" />
+		<property name="flowService" ref="nlflowServiceImpl" />
+		<property name="personService" ref="personServiceImpl" />
+		<property name="flowDao" ref="flowDao" />
+	</bean>
+	<!-- 内部会签 -->
+	<bean id="nlinnerJointSignFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLInnerJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nldeptChengHeFlowStageProcessor" />
+	</bean>
+	<!-- 部门签核 -->
+	<bean id="nldeptChengHeFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLDeptChengHeFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nlcenterJointSignFlowStageProcessor" />
+	</bean>
+	<!-- 中心会签 -->
+	<bean id="nlcenterJointSignFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLCenterJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nlcenterChengHeFlowStageProcessor" />
+	</bean>
+	<!-- 中心签核 -->
+	<bean id="nlcenterChengHeFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLCenterChengHeFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nljointSignFlowStageProcessor" />
+	</bean>
+	<!-- 其他单位会办 -->
+	<bean id="nljointSignFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nlnextfinalSignatureFlowStageProcessor" />
+	</bean>
+	<!-- 核决副主管 -->
+	<bean id="nlnextfinalSignatureFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLNextFinalSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nlfinalSignatureFlowStageProcessor" />
+	</bean>
+	<!-- 核决主管审核 -->
+	<bean id="nlfinalSignatureFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLFinalSignatureFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nlxzJointSignFlowStageProcessor" />
+	</bean>
+	<!-- 行政职能部门会办 -->
+	<bean id="nlxzJointSignFlowStageProcessor" parent="nlabstractFlowProcessor" 
+		class="com.wwgroup.flow.service.nstage.NLXZJointSignFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nlconfirmFlowStageProcessor" />	
+	</bean>
+	<!-- 本人确认 -->
+	<bean id="nlconfirmFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLConfirmFlowStageProcessor">
+		<property name="nextFlowStageProcessor" ref="nlcopySendFlowStageProcessor" />
+	</bean>
+	<!-- 抄送相关单位 -->
+	<bean id="nlcopySendFlowStageProcessor" parent="nlabstractFlowProcessor"
+		class="com.wwgroup.flow.service.nstage.NLCopySendFlowStageProcessor">
+	</bean>
+	<!-- 新的内联结束 -->
+
+	<bean id="flowManagementServiceImpl"
+		class="com.wwgroup.flow.service.impl.FlowManagementServiceImpl">
+		<property name="flowDao" ref="flowDao" />
+		<property name="personService" ref="personServiceImpl" />
+		<property name="flowAgentService" ref="flowAgentServiceImpl" />
+		<property name="flowAssistService" ref="flowAssistServiceImpl" />
+		<property name="organService" ref="organService" />
+	</bean>
+
+	<bean id="flowManagementService" parent="basicTxProxy">
+		<property name="target" ref="flowManagementServiceImpl"></property>
+	</bean>
+	
+	<!-- 新的内联所需 -->
+	<bean id="nlflowServiceImpl"
+		class="com.wwgroup.flow.service.impl.NLFlowServiceImpl">
+		<property name="flowDao" ref="flowDao" />
+		<property name="personService" ref="personServiceImpl" />
+		<property name="flowStage" ref="nlinnerJointSignFlowStageProcessor" />
+		<property name="organDao" ref="organDaoImpl" />
+		<property name="userDao" ref="userDaoImpl" />
+	</bean>
+	<bean id="nlflowService" parent="basicTxProxy">
+		<property name="target" ref="nlflowServiceImpl" />
+	</bean>
+	<!-- 新的内联所需 End. -->
+
+	<!-- 新的签呈所需 -->
+	<bean id="qcflowServiceImpl"
+		class="com.wwgroup.flow.service.impl.QCFlowServiceImpl">
+		<property name="flowDao" ref="flowDao" />
+		<property name="personService" ref="personServiceImpl" />
+		<property name="flowStage" ref="qcinnerJointSignFlowStageProcessor" />
+		<property name="organDao" ref="organDaoImpl" />
+		<property name="userDao" ref="userDaoImpl" />
+	</bean>
+	<bean id="qcflowService" parent="basicTxProxy">
+		<property name="target" ref="qcflowServiceImpl" />
+	</bean>
+	<!-- 新的签呈所需 End. -->
+
+	<bean id="flowServiceImpl"
+		class="com.wwgroup.flow.service.impl.FlowServiceImpl">
+		<property name="flowDao" ref="flowDao" />
+		<property name="personService" ref="personServiceImpl" />
+		<property name="flowStage" ref="innerJointSignFlowStageProcessor" />
+		<property name="organDao" ref="organDaoImpl" />
+		<property name="userDao" ref="userDaoImpl" />
+	</bean>
+
+	<bean id="flowService" parent="basicTxProxy">
+		<property name="target" ref="flowServiceImpl"></property>
+	</bean>
+	<bean id="flowDao" class="com.wwgroup.flow.dao.impl.FlowDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="lobHandler" ref="defaultLobHandler" />
+	</bean>
+
+	<!-- 代理 & 助理 -->
+	<bean id="flowAgentService" parent="basicTxProxy">
+		<property name="target" ref="flowAgentServiceImpl"></property>
+	</bean>
+	<bean id="flowAgentServiceImpl"
+		class="com.wwgroup.flow.service.impl.FlowAgentServiceImpl">
+		<property name="flowAgentDao" ref="flowAgentDao" />
+		<property name="huaYangFlowInterfaceDao" ref="huaYangFlowInterfaceDao" />
+	</bean>
+	<bean id="flowAgentDao" class="com.wwgroup.flow.dao.impl.FlowAgentDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="lobHandler" ref="defaultLobHandler" />
+	</bean>
+	
+	<bean id="flowAssistService" parent="basicTxProxy">
+		<property name="target" ref="flowAssistServiceImpl"></property>
+	</bean>
+	<bean id="flowAssistServiceImpl"
+		class="com.wwgroup.flow.service.impl.FlowAssistServiceImpl">
+		<property name="flowAssistDao" ref="flowAssistDao" />
+	</bean>
+	<bean id="flowAssistDao" class="com.wwgroup.flow.dao.impl.FlowAssistDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="lobHandler" ref="defaultLobHandler" />
+	</bean>
+	
+	<bean id="huaYangFlowInterfaceDao" class="com.wwgroup.flow.dao.impl.HuaYangFlowInterfaceDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="lobHandler" ref="defaultLobHandler" />
+	</bean>
+
+	<bean id="personServiceImpl"
+		class="com.wwgroup.flow.service.impl.PersonServiceImpl">
+		<property name="userService" ref="userService"></property>
+		<property name="organService" ref="organService"></property>
+	</bean>
+	<bean id="personService" parent="basicTxProxy">
+		<property name="target" ref="personServiceImpl"></property>
+	</bean>
+
+	<!-- action 配置 -->
+	<bean name="loginAction"
+		class="com.wwgroup.flow.action.LoginAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean name="qianChenAction"
+		class="com.wwgroup.flow.qianchen.action.QianChenAction"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="flowService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<bean name="qianChenEditAction"
+		class="com.wwgroup.flow.qianchen.action.QianChenEditAcion"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="flowService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="flowAgentService" ref="flowAgentServiceImpl" />
+		<property name="flowAssistService" ref="flowAssistServiceImpl" />
+	</bean>
+
+	<bean name="qianChenQueryAction"
+		class="com.wwgroup.flow.qianchen.action.QianChenQueryAction"
+		scope="prototype">
+		<property name="flowService" ref="flowService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="organService" ref="organService"></property>
+		<property name="personService" ref="personService"></property>
+	</bean>
+
+	<bean name="flowManageAction"
+		class="com.wwgroup.flow.action.FlowManageAction" scope="prototype">
+		<property name="flowManagementService"
+			ref="flowManagementService">
+		</property>
+		<property name="personService" ref="personService"></property>
+	</bean>
+
+	<!-- 内联 -->
+	<bean name="neiLianAction"
+		class="com.wwgroup.flow.neilian.action.NeiLianAction"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="flowService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean name="neiLianEditAction"
+		class="com.wwgroup.flow.neilian.action.NeiLianEditAcion"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="flowService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="flowAgentService" ref="flowAgentServiceImpl" />
+		<property name="flowAssistService" ref="flowAssistServiceImpl" />
+	</bean>
+	<!-- 内联 End. -->
+
+	<!-- 新的签呈流程 -->
+	<bean name="nqianChenAction"
+		class="com.wwgroup.flow.qianchen.naction.QianChenAction"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="qcflowService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<bean name="nqianChenEditAction"
+		class="com.wwgroup.flow.qianchen.naction.QianChenEditAcion"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="qcflowService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="flowAgentService" ref="flowAgentServiceImpl" />
+		<property name="flowAssistService" ref="flowAssistServiceImpl" />
+	</bean>
+
+	<bean name="nqianChenQueryAction"
+		class="com.wwgroup.flow.qianchen.naction.QianChenQueryAction"
+		scope="prototype">
+		<property name="flowService" ref="qcflowService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="organService" ref="organService"></property>
+		<property name="personService" ref="personService"></property>
+	</bean>
+	<!-- 新的签呈流程 End. -->
+
+	<!-- 新的内联流程 -->
+	<bean name="nneiLianAction"
+		class="com.wwgroup.flow.neilian.naction.NeiLianAction"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="nlflowService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean name="nneiLianEditAction"
+		class="com.wwgroup.flow.neilian.naction.NeiLianEditAcion"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="nlflowService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="flowAgentService" ref="flowAgentServiceImpl" />
+		<property name="flowAssistService" ref="flowAssistServiceImpl" />
+	</bean>
+	<!-- 新的内联流程 End. -->
+		
+	<bean name="downLoadAction"
+		class="com.wwgroup.flow.action.DownLoadAction"
+		scope="prototype">
+		<property name="flowService" ref="flowService"></property>
+	</bean>
+	
+	<bean name="uploadAction"
+		class="com.wwgroup.flow.action.UploadAction"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="flowService"></property>
+	</bean>
+	
+	<bean name="uploadDeleteAction"
+		class="com.wwgroup.flow.action.UploadDeleteAction"
+		scope="prototype">
+		<property name="personService" ref="personService"></property>
+		<property name="flowService" ref="flowService"></property>
+	</bean>
+	
+	<bean name="agentAction"
+		class="com.wwgroup.flow.agent.action.AgentAction"
+		scope="prototype">
+		<property name="agentService" ref="flowAgentService"></property>
+		<property name="personService" ref="personService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="organService" ref="organService"></property>
+	</bean>
+	
+	<bean name="assistAction"
+		class="com.wwgroup.flow.assist.action.AssistAction"
+		scope="prototype">
+		<property name="assistService" ref="flowAssistService"></property>
+		<property name="organService" ref="organService"></property>
+		<property name="personService" ref="personService"></property>
+	</bean>
+	
+	<bean id="mailUtil" class="com.wwgroup.common.util.MailUtil">
+		<property name="flowDao" ref="flowDao" />
+		<property name="userService" ref="userService"></property>
+		<property name="flowAgentService" ref="flowAgentServiceImpl" />
+		<property name="flowAssistService" ref="flowAssistServiceImpl" />
+		<property name="personService" ref="personService"></property>
+	</bean>
+	
+	<bean id="exportAction" class="com.wwgroup.flow.action.ExportAction" scope="prototype">
+		<property name="flowManagementService" ref="flowManagementService" />
+		<property name="personService" ref="personService" />
+	</bean>
+</beans>

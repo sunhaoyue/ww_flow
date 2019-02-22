@@ -1,0 +1,141 @@
+@charset "utf-8";
+/* CSS Document */
+*{ padding:0; margin:0; font-family:"Microsoft YaHei"; }
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+time, mark, audio, video{ margin:0; padding:0; border:0; font-size:100%; text-decoration:none; }
+html { line-height:1; }
+
+.left-sidebar {
+	border-right: 1px solid #1da0d0;
+	background: #f5f8fd;
+	height: 1920px;
+	width: 180px;
+}
+
+.sidebar-nav .list-box {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	color: #000;
+}
+
+.sidebar-nav .list-box .headbg {
+	position: relative;
+	display: block;
+	padding: 3px 0 0px 0;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	height: 22px;
+	line-height: 22px;
+	background-image: url(../../images/titlebg01.gif);
+	background-repeat: repeat-x;
+	/* background:#16a0d3; */
+	/* background: #5c9ccc url(../../images/2.0/table1_th.gif) repeat-x; */
+	border-top: 1px solid #1da0d0;
+	border-bottom: 1px dotted #ccc;
+	cursor: pointer;
+	color: #fff;
+}
+.sidebar-nav .list-box .headbg a{color: #fff; text-decoration: none;}
+.sidebar-nav .list-box .headbg a:hover,.sidebar-nav .list-box .headbg a:active {color: #CD0000;}
+
+.sidebar-nav .list-box ul li{
+	font-size: 13px;
+	position: relative;
+	display: block;
+	padding: 8px 0 10px 15px;
+	line-height: 18px;
+	height: 18px;
+	border-bottom: 1px dotted #1da0d0;
+	background: #f6f7f7;
+	cursor: pointer;
+}
+
+.sidebar-nav .list-box ul li:hover{
+	background: #C0D2F3;
+	text-decoration: none;
+}
+
+.sidebar-nav .list-box ul li.selected{
+	background: #16a0d3;
+	color: #fff;
+}
+.sidebar-nav .list-box ul li.selected .arrow {
+	position: absolute;
+	top: 9.5px;
+	right: -1px;
+	width: 7px;
+	height: 21px;
+	background: url(../../images/2.0/skin_icons.png) -40px -356px no-repeat;
+}
+
+/* .sidebar-nav .list-box ul li .icon-0,.sidebar-nav .list-box ul li .icon-1,.sidebar-nav .list-box ul li .icon-2,.sidebar-nav .list-box ul li .icon-3,.sidebar-nav .list-box ul li .icon-4,.sidebar-nav .list-box ul li .icon-5,.sidebar-nav .list-box ul li .icon-6,.sidebar-nav .list-box ul li .icon-7,.sidebar-nav .list-box ul li .icon-8
+	{
+	vertical-align: middle;
+	margin-right: 3px;
+	margin-top: 3px;
+	display: inline-block;
+	background: url(../../images/2.0/skin_icons.png) no-repeat;
+	float: left;
+	height: 16px;
+	width: 14px;
+}
+
+.sidebar-nav .list-box ul li .icon-0 {
+	background-position: -168px -28px;
+}
+
+.sidebar-nav .list-box ul li .icon-1 {
+	background-position: -224px -28px;
+}
+
+.sidebar-nav .list-box ul li .icon-2 {
+	background-position: -28px -28px;
+}
+
+.sidebar-nav .list-box ul li .icon-3 {
+	background-position: -56px -28px;
+}
+
+.sidebar-nav .list-box ul li .icon-4 {
+	background-position: -140px -28px;
+}
+
+.sidebar-nav .list-box ul li .icon-5 {
+	background-position: 0 -28px;
+}
+
+.sidebar-nav .list-box ul li .icon-6 {
+	background-position: 0 -28px;
+}
+
+.sidebar-nav .list-box ul li .icon-7 {
+	background-position: -280px -112px;
+}
+
+.sidebar-nav .list-box ul li .icon-8 {
+	background-position: -418px -112px;
+} */
+.sidebar-nav .list-box ul li span{
+	vertical-align: middle;
+	padding-top: 0px;
+	display: inline-block;
+	float: left;
+	height: 24px;
+	/* font-size: 12px; */
+}
+.sidebar-nav .list-box ul li .icon {
+	vertical-align: middle;
+	margin-right: 3px;
+	display: inline-block;
+	float: left;
+}
+

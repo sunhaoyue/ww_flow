@@ -1,0 +1,39 @@
+@charset "utf-8";
+.leftpage {
+	background-color: #f5f8fd;
+	width: 200px;
+	border-right-width: 3px;
+	border-top-style: none;
+	border-right-style: ridge;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-right-color: #0A70C0;
+	height: 640px;
+}
+.line01 {
+	border-bottom-width: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: dotted;
+	border-left-style: none;
+	border-bottom-color: #CCCCCC;
+	height: 40px;
+}
+.leftpage .headbg01 {
+	background-image: url(../images/titlebg01.gif);
+	background-repeat: repeat-x;
+	font-family: "黑体";
+	font-size: 14px;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: center;
+	line-height: 26px;
+	height: 26px;
+}
+.leftpage .currentstyle {
+	background-color: #C0D2F3;
+}
+.leftpage  .currentstyle  a {
+	font-weight: bold;
+	color: #006DDB;
+}

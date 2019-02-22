@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="spring"/>
+	<!--
+		<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.multipart.saveDir" value="D:/tmp"></constant>
+	<constant name="struts.multipart.maxSize" value="20971520" />
+		<constant name="struts.objectFactory" value="spring"></constant>
+	-->
+
+	<!--  
+		<include file="example.xml"/>
+	-->
+	<!-- <include file="struts-default.xml"></include> -->
+	<package name="wwGroup-default" extends="struts-default"
+		abstract="true">
+		<!-- 
+			<default-action-ref name="index" />
+		-->
+
+		<result-types>
+			<result-type name="ajax"
+				class="com.wwgroup.common.view.AjaxResult" />
+		</result-types>
+
+		<global-results>
+			<result name="ajax" type="ajax" />
+			<result name="error">
+				/pages/pub/error.jsp
+			</result>
+		</global-results>
+
+		
+
+	</package>
+	<include file="struts-group.xml"></include>
+	<include file="struts-flow.xml"></include>
+
+	<!--
+		<include file="struts-user.xml"></include>
+	-->
+	<!-- Add packages here -->
+</struts>

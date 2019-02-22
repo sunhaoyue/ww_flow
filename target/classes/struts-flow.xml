@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- QianChen -->
+	<package name="qianchen" namespace="/qianchen"
+		extends="wwGroup-default">
+		<action name="qianChenAction" class="qianChenAction">
+			<result name="toApply">
+				/pages/qianchen/qianchen_apply.jsp
+			</result>
+			<result name="success">
+				/pages/flowmanagement/todoworks.jsp
+			</result>
+		</action>
+		<action name="saveQianChenApply" class="qianChenAction" method="saveQianChenApply">
+		</action>
+		<action name="qianChenEditAction" class="qianChenEditAction">
+			<result name="qianchenDetail">
+				/pages/qianchen/qianchen_edit.jsp
+			</result>
+			<result name="qianchenRenew">
+				/pages/qianchen/qianchen_renew.jsp
+			</result>
+			<result name="qianchenTemplate">
+				/pages/qianchen/qianchen_template.jsp
+			</result>
+			<result name="success">
+				/pages/flowmanagement/todoworks.jsp
+			</result>
+		</action>
+		<action name="loadAttachments" class="qianChenQueryAction"
+			method="loadAttachments">
+		</action>
+		<action name="listWorkHistory" class="qianChenQueryAction"
+			method="listWorkHistory">
+		</action>
+		<action name="judgeDecisionMaker" class="qianChenQueryAction"
+			method="judgeDecisionMaker">
+		</action>
+	</package>
+
+	<!-- NeiLian -->
+	<package name="neilian" namespace="/neilian"
+		extends="wwGroup-default">
+		<action name="neiLianAction" class="neiLianAction">
+			<result name="toApply">
+				/pages/neilian/neilian_apply.jsp
+			</result>
+			<result name="success">
+				/pages/flowmanagement/todoworks.jsp
+			</result>
+			
+		</action>
+		<action name="saveNeiLianApply" class="neiLianAction" method="saveNeiLianApply">
+		</action>
+		<action name="neiLianEditAction" class="neiLianEditAction">
+			<result name="neilianDetail">
+				/pages/neilian/neilian_edit.jsp
+			</result>
+			<result name="neilianRenew">
+				/pages/neilian/neilian_renew.jsp
+			</result>
+			<result name="neilianTemplate">
+				/pages/neilian/neilian_template.jsp
+			</result>
+			<result name="success">
+				/pages/flowmanagement/todoworks.jsp
+			</result>
+		</action>
+		<action name="loadReferNeiLianDetail" class="neiLianEditAction" method="loadReferNeiLianDetail"/>
+	</package>
+
+	<!-- 新的签呈QianChen -->
+	<package name="nqianchen" namespace="/nqianchen"
+		extends="wwGroup-default">
+		<action name="qianChenAction" class="nqianChenAction">
+			<result name="toApply">
+				/pages/n_qianchen/qianchen_apply.jsp
+			</result>
+			<result name="success">
+				/pages/flowmanagement/todoworks.jsp
+			</result>
+		</action>
+		<action name="saveQianChenApply" class="nqianChenAction" method="saveQianChenApply">
+		</action>
+		<action name="qianChenEditAction" class="nqianChenEditAction">
+			<result name="qianchenDetail">
+				/pages/n_qianchen/qianchen_edit.jsp
+			</result>
+			<result name="qianchenRenew">
+				/pages/n_qianchen/qianchen_renew.jsp
+			</result>
+			<result name="qianchenTemplate">
+				/pages/n_qianchen/qianchen_template.jsp
+			</result>
+			<result name="success">
+				/pages/flowmanagement/todoworks.jsp
+			</result>
+			<result name="qcView">
+				/pages/n_qianchen/qianchen_view.jsp
+			</result>
+		</action>
+		<action name="loadAttachments" class="nqianChenQueryAction"
+			method="loadAttachments">
+		</action>
+		<action name="listWorkHistory" class="nqianChenQueryAction"
+			method="listWorkHistory">
+		</action>
+		<action name="judgeDecisionMaker" class="nqianChenQueryAction"
+			method="judgeDecisionMaker">
+		</action>
+	</package>
+	<!-- 新的签呈QianChen End. -->
+
+	<!-- 新的内联 NeiLian -->
+	<package name="nneilian" namespace="/nneilian"
+		extends="wwGroup-default">
+		<action name="neiLianAction" class="nneiLianAction">
+			<result name="toApply">
+				/pages/n_neilian/neilian_apply.jsp
+			</result>
+			<result name="success">
+				/pages/flowmanagement/todoworks.jsp
+			</result>
+		</action>
+		<action name="saveNeiLianApply" class="nneiLianAction" method="saveNeiLianApply">
+		</action>
+		<action name="neiLianEditAction" class="nneiLianEditAction">
+			<result name="neilianDetail">
+				/pages/n_neilian/neilian_edit.jsp
+			</result>
+			<result name="neilianRenew">
+				/pages/n_neilian/neilian_renew.jsp
+			</result>
+			<result name="neilianTemplate">
+				/pages/n_neilian/neilian_template.jsp
+			</result>
+			<result name="success">
+				/pages/flowmanagement/todoworks.jsp
+			</result>
+			<result name="nlView">
+				/pages/n_neilian/neilian_view.jsp
+			</result>
+		</action>
+		<action name="loadReferNeiLianDetail" class="nneiLianEditAction" method="loadReferNeiLianDetail"/>
+	</package>
+	<!-- 新的内联 NeiLian End. -->
+	
+	<!-- Agent -->
+	<package name="agent" namespace="/agent"
+		extends="wwGroup-default">
+		<action name="findAllAgents" class="agentAction" method="findAllAgents"></action>
+		<action name="getExtraFlows" class="agentAction" method="getExtraFlows"></action>
+		<action name="updateAgent" class="agentAction" method="updateAgent"></action>
+		<action name="deleteAgent" class="agentAction" method="deleteAgent"></action>
+		<action name="agentOverdue" class="agentAction" method="overdue"></action>												
+		<action name="agentAction" class="agentAction">
+			<result name="addAgent">
+				/pages/agent/agent_apply.jsp
+			</result>
+			<result name="success">
+				/pages/agent/agent_query.jsp
+			</result>
+		</action>
+	</package>
+	
+	<!-- Assist -->
+	<package name="assist" namespace="/assist"
+		extends="wwGroup-default">
+		<action name="findAllAssists" class="assistAction" method="findAllAssists"></action>	
+		<action name="deleteAssist" class="assistAction" method="deleteAssist"></action>
+		<action name="loadOperatorInfo" class="assistAction" method="loadOperatorInfo"></action>
+		<action name="assistAction" class="assistAction">
+			<result name="addAssist">
+				/pages/assist/assist_apply.jsp
+			</result>
+			<result name="editAssist">
+				/pages/assist/assist_edit.jsp
+			</result>
+			<result name="success">
+				/pages/assist/assist_query.jsp
+			</result>
+		</action>
+	</package>
+
+	<package name="management" namespace="/management"
+		extends="wwGroup-default">
+		<action name="findMyWorksCount" class="flowManageAction"
+			method="findMyWorksCount">
+			<result name="success">/pages/leftframepage_01.jsp</result>
+		</action>
+		<action name="findMyToDoWorks" class="flowManageAction"
+			method="findMyToDoWorks">
+		</action>
+		<action name="findFlowTemplates" class="flowManageAction"
+			method="findFlowTemplates">
+		</action>
+		<action name="findMyProcessFlow" class="flowManageAction"
+			method="findMyProcessFlow">
+		</action>
+		<action name="findCreatorFlow" class="flowManageAction"
+			method="findCreatorFlow">
+		</action>
+		<action name="searchMyWorks" class="flowManageAction"
+			method="searchMyWorks">
+		</action>
+		<action name="delTempForm" class="flowManageAction"
+			method="delTempForm">
+		</action>
+		<action name="top" class="flowManageAction" method="top">
+			<result name="success">/pages/top.jsp</result>
+		</action>
+		<action name="findCopyFlow" class="flowManageAction"
+			method="findCopyFlow">
+		</action>
+		<action name="findSecurityFlow" class="flowManageAction"
+			method="findSecurityFlow">
+		</action>
+		<action name="advancedSearch" class="flowManageAction" method="advancedSearch">
+			<result name="success">/pages/flowmanagement/advancedsearch.jsp</result>
+		</action>
+		<action name="confidentialSearch" class="flowManageAction" method="confidentialSearch">
+			<result name="success">/pages/flowmanagement/confidentialSearch.jsp</result>
+		</action>
+		<action name="confSearchWorks" class="flowManageAction"
+			method="confSearchWorks">
+		</action>
+		<action name="confExportWorks" class="flowManageAction"
+			method="confExportWorks">
+		</action>
+		<action name="findLogInfoByPage" class="flowManageAction"
+			method="findLogInfoByPage">
+		</action>
+		<action name="confidentialSearchboss" class="flowManageAction" method="confidentialSearchboss">
+			<result name="success">/pages/flowmanagement/confidentialSearchboss.jsp</result>
+		</action>
+		<action name="confSearchbossWorks" class="flowManageAction"
+			method="confSearchbossWorks">
+		</action>
+		<action name="confbossExportWorks" class="flowManageAction"
+			method="confbossExportWorks">
+		</action>
+	</package>
+
+	<package name="common" namespace="/" extends="wwGroup-default">
+		<action name="login" class="loginAction">
+			<result name="success">/pages/mainframe.jsp</result>
+		</action>
+		<action name="download" class="downLoadAction">
+			<!-- 设置文件名参数，由页面上传入 -->
+			<param name="fileName"></param>
+			<result name="success" type="stream">
+				<!-- 下载文件类型定义 --> 
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<!-- 下载文件处理方法 -->
+				<param name="contentDisposition">
+					attachment;filename="${downloadChineseFileName}"
+				</param>
+				<!-- 下载文件输出流定义 -->
+				<param name="inputName">downloadFile</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<action name="upload" class="uploadAction">
+		</action>
+		<action name="uploadDeleteFile" class="uploadDeleteAction"
+			method="uploadDeleteFile">
+		</action>
+		
+		<!-- <action name="toExport" class="exportAction">
+			<param name="fileName"></param>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="contentDisposition">
+					attachment;filename="export.xls"
+				</param>
+				<param name="inputName">downloadFile</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action> -->
+		
+		<action name="export" class="exportAction" method="toExcel">
+		</action>
+		
+		<action name="exportLogInfo" class="exportAction" method="exportLogInfo">
+		</action>
+	</package>
+
+</struts>
